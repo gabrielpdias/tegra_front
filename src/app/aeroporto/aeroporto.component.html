@@ -1,129 +1,138 @@
 <div class="main-content">
-    <div class="container-fluid">
-        <div class="row" style="padding-top: 1rem;">
-            <div class="col-md-3">
-                <!-- Semântica -->
-            </div>
-            <div class=col-md-6>
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Busca de Vôos</h5>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Aeroporto Origem</label>
-                                    <select class="form-control" [(ngModel)]="aeroportoOrigem" name="aeroportoOrigem"
-                                        [value]="aeroportoOrigem">
-                                        <option *ngFor="let origem of listaOrigem" [value]="origem.aeroporto">
-                                            {{ origem.nome }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label>Aeroporto Destino</label>
-                                    <select class="form-control" [(ngModel)]="aeroportoDestino" name="aeroportoDestino"
-                                        [value]="aeroportoDestino">
-                                        <option *ngFor="let destino of listaDestino" [value]="destino.aeroporto">
-                                            {{ destino.nome }}
-                                        </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-4">
-                                <label>Data de Saída</label>
-                                <input type="date" name="dataSaida" class="form-control" [value]=dataSaida
-                                    [(ngModel)]="dataSaida">
-                            </div>
-                            <div class="col-md-4">
-                                <!-- Semântica -->
-                            </div>
-                            <div class="col-md-4" align="right" style="padding-top: 2em;">
-                                <button class="btn btn-info btn-round" (click)="buscarVoos()">
-                                    Buscar Vôos
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+  <div class="container-fluid">
+    <div class="row" style="padding-top: 1rem;">
+      <div class="col-md-3">
+        <!-- Semântica -->
+      </div>
+      <div class=col-md-6>
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Busca de Vôos</h5>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Aeroporto Origem</label>
+                  <select class="form-control" [(ngModel)]="aeroportoOrigem" name="aeroportoOrigem" [value]="aeroportoOrigem">
+                    <option *ngFor="let origem of listaOrigem" [value]="origem.aeroporto">
+                      {{ origem.nome }}
+                    </option>
+                  </select>
                 </div>
+              </div>
             </div>
-            <div class="col-md-3">
-                <!-- Semântica -->
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Aeroporto Destino</label>
+                  <select class="form-control" [(ngModel)]="aeroportoDestino" name="aeroportoDestino" [value]="aeroportoDestino">
+                    <option *ngFor="let destino of listaDestino" [value]="destino.aeroporto">
+                      {{ destino.nome }}
+                    </option>
+                  </select>
+                </div>
+              </div>
             </div>
+            <div class="row">
+              <div class="col-md-4">
+                <label>Data de Saída</label>
+                <input type="date" name="dataSaida" class="form-control" [value]=dataSaida [(ngModel)]="dataSaida">
+              </div>
+              <div class="col-md-4">
+                <div class="form-group">
+                  <label>Ordenar</label>
+                  <select class="form-control" [(ngModel)]="orderby" name="orderby" [value]="orderby" (change)="ordernarVoos()">
+                    <option value="hora"> Por Hora </option>
+                    <option value="preco"> Por Preço </option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-md-4" align="right" style="padding-top: 2em;">
+                <button class="btn btn-info btn-round" (click)="buscarVoos()">
+                  Buscar Vôos
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="row" *ngIf="listaVoos.length > 0" style="padding-top: 1rem;">
-            <table class="table table-bordered table-sm" align="center">
-                <thead>
-                    <tr>
-                        <th rowspan="2">Origem</th>
-                        <th rowspan="2">Destino</th>
-                        <th rowspan="2">Data</th>
-                        <th colspan="8">Escalas</th>
-                    </tr>
-                    <tr>
-                        <th>Número</th>
-                        <th>Vôo</th>
-                        <th>Origem</th>
-                        <th>Destino</th>
-                        <th>Data Saída</th>
-                        <th>Saída</th>
-                        <th>Chegada</th>
-                        <th>Valor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let voo of listaVoos">
-                        <td>{{voo.origem}} </td>
-                        <td>{{voo.destino}} </td>
-                        <td>{{voo.date}} </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos; let i = index">
-                                {{i + 1}}º
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.voo}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.origem}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.destino}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.data_saida}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.saida}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                {{escala.chegada}}
-                            </div>
-                        </td>
-                        <td>
-                            <div *ngFor="let escala of voo.voos">
-                                R${{escala.valor}}
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- Semântica -->
+      </div>
     </div>
+    <div class="row" *ngIf="listaVoos.length > 0" style="padding-top: 1rem;">
+      <table class="table table-bordered table-sm" align="center">
+        <thead>
+          <tr>
+            <th rowspan="2">Origem</th>
+            <th rowspan="2">Destino</th>
+            <th rowspan="2">Data</th>
+            <th colspan="8">Escalas</th>
+          </tr>
+          <tr>
+            <th>Número</th>
+            <th>Vôo</th>
+            <th>Origem</th>
+            <th>Destino</th>
+            <th>Data Saída</th>
+            <th>Saída</th>
+            <th>Chegada</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let voo of listaVoos">
+            <td>{{voo.origem}} </td>
+            <td>{{voo.destino}} </td>
+            <td>{{voo.date}} </td>
+            <td>
+              <div *ngFor="let escala of voo.voos; let i = index">
+                {{i + 1}}º
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.voo}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.origem}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.destino}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.data_saida}}
+              </div>
+              <div>
+                <b>Total Horas:</b> {{voo.totalHoras}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.saida}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                {{escala.chegada}}
+              </div>
+            </td>
+            <td>
+              <div *ngFor="let escala of voo.voos">
+                R${{escala.valor}}
+              </div>
+              <div>
+                <b>Total Preço:</b> R$ {{voo.totalPreco}}
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>

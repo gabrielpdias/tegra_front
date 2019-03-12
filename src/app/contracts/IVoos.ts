@@ -3,6 +3,9 @@ export interface IVoos {
     destino: string;
     date: string;
     voos: IVoosDetalhe[];
+
+    totalPreco: number;
+    totalHoras: string;
 }
 
 export interface IVoosDetalhe {
